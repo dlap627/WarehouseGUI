@@ -25,6 +25,7 @@ public class Area extends JPanel{
 	
 	public void add(Location l) {
 		this.list.add(l);
+		WarehouseGUI.nodes.add(l);
 		super.add(l);
 	}
 	
@@ -34,11 +35,18 @@ public class Area extends JPanel{
 		int y = 20;
 
 		for (Location each : list) {
-			g.setColor(Color.BLACK);
+			g.setColor(each.c);
 			g.fillOval(x, y, size, size);
+			g.setColor(Color.white);
+			g.drawString(String.valueOf(each.ID), x + size/2, y + size/2);
 //			System.out.printf("Printing %d with x: %d and y: %d\n",each.ID,x,y);
-			x = x + 30 + 20;
+			
 			y = y + 30 + 20;
+			
+			if(y + size > this.getHeight()) {
+				y = 20;
+				x = x + 30 + 20;
+			}
 			
 		}
 	}

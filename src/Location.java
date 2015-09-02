@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -9,6 +10,7 @@ public class Location extends JComponent {
 	private InetAddress host, router;
 	public int ID;
 	private static int count = 0;
+	public Color c;
 	
 	public Location(String h, String r) {
 		try {
@@ -16,6 +18,7 @@ public class Location extends JComponent {
 			setRouter(Inet6Address.getByName(r));
 			ID = count;
 			count++;
+			c = new Color(96,22,38);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,4 +48,19 @@ public class Location extends JComponent {
 	public void setID(int iD) {
 		ID = iD;
 	}
+	
+	public boolean equals(Object n) {
+    	if (n == null) {
+    		return false;
+    	}
+    	
+    	Location temp = (Location) n;
+    	
+    	if (this.ID == temp.ID) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
 }
