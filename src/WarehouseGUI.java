@@ -6,7 +6,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.*;
@@ -14,16 +16,18 @@ import javax.swing.*;
 
 public class WarehouseGUI extends JPanel {
 	public JFrame frame;
-	public List<Area> areas;
-	public static List<Location> nodes = new ArrayList<Location>();
+//	public List<Area> areas;
+	public Map<String, Area> routers;
+	public static List<
+	Location> nodes = new ArrayList<Location>();
 	public static AtomicBoolean b;
-//	public Color[] colours = new Color[Color.cyan, Color.magenta];
 	
 	public WarehouseGUI(GridLayout g) {
 		super(g);
 		frame = new JFrame("Warehouse Management");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		areas = new ArrayList<Area>();
+//		areas = new ArrayList<Area>();
+		routers = new HashMap<String, Area>();
 	}
 	
 	public static void main(String[] args) {
@@ -40,11 +44,11 @@ public class WarehouseGUI extends JPanel {
 		
 		System.out.println("yay");
 		
-		main.areas.forEach(area -> area.add(new Location("localhost","localhost")));
+//		main.areas.forEach(area -> area.add(new Location("localhost","localhost")));
 		
-//		for (Area a : main.areas) {
-//			a.add(new Location("localhost","localhost"));
-//		}
+		for (Area each : main.routers.values()) {
+			each.add(new Location("localhost","localhost"));
+		}
 		
 		try {
 			Thread.sleep(1000);
@@ -65,14 +69,31 @@ public class WarehouseGUI extends JPanel {
 				String[] input = str.split("\\s+");
 				
 				
+				
+				
 				if (Integer.parseInt(input[0]) == 0) {
-					if (main.areas.contains(Integer.parseInt(input[2]))) {
-						System.out.println("woot");
+					if (main.routers.containsKey(input[2])) {
+//						main.routers.put(input[1],new Area(input[1],input[2]));
+						main.routers.get(input[2]).add(new Location(input[1],input[2]));
+					}
+					else {
+						System.out.println("Router doesn't exist");
+						continue;
 					}
 				}
-				
-				//main.areas.get(1).add((Location) (main.areas.get(0).list.remove(0)));
-//				nodes.get(2).c = new Color(23,106,48);
+				else {
+					if (main.routers.containsKey(input[2])) {						
+						Location x = main.routers.get(input[2]).hosts.remove(input[1]);
+						if (x == null) {
+							System.out.println("nothing removed");
+						}
+					}
+					else {
+						System.out.println("Router doesn't exist");
+						continue;
+					}
+				}
+
 				main.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -84,7 +105,8 @@ public class WarehouseGUI extends JPanel {
 	
 	public synchronized void add(Area a) {
 		super.add(a);
-		this.areas.add(a);
+//		this.areas.add(a);
+		this.routers.put(a.id, a);
 	}
 	
 	private void createAndShowGUI() {
