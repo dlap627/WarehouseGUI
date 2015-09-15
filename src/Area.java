@@ -14,7 +14,7 @@ public class Area extends JPanel{
 	public List<Location> list;
 	public Map<String, Location> hosts;
 	public Color c;
-	public int ID;
+//	public int ID;
 	public String id;
 	public InetAddress router;
 	public static int numbers = 0;
@@ -24,8 +24,7 @@ public class Area extends JPanel{
 		super(new GridLayout(3,3));
 		list = new ArrayList<Location>();
 		hosts = new HashMap<String, Location>();
-		ID = numbers;
-		id = String.valueOf(ID);
+		id = String.valueOf(numbers);
 		numbers++;
 	}
 	public Area(String r) {
@@ -50,7 +49,8 @@ public class Area extends JPanel{
 			g.setColor(each.c);
 			g.fillOval(x, y, size, size);
 			g.setColor(Color.white);
-			g.drawString(/*String.valueOf(each.ID)*/ each.host, x + size/2, y + size/2);
+//			g.drawString(/*String.valueOf(each.ID)*/ each.host, x + size/2, y + size/2);
+			g.drawString(/*String.valueOf(each.ID)*/ each.host, x, y);
 //			System.out.printf("Printing %d with x: %d and y: %d\n",each.ID,x,y);
 			
 			y = y + 30 + 20;
