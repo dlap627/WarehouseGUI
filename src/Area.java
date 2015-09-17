@@ -11,8 +11,8 @@ import javax.swing.*;
 
 
 public class Area extends JPanel{
-	public List<Location> list;
-	public Map<String, Location> hosts;
+	public List<Host> list;
+	public Map<String, Host> hosts;
 	public Color c;
 //	public int ID;
 	public String id;
@@ -22,8 +22,8 @@ public class Area extends JPanel{
 
 	public Area() {
 		super(new GridLayout(3,3));
-		list = new ArrayList<Location>();
-		hosts = new HashMap<String, Location>();
+		list = new ArrayList<Host>();
+		hosts = new HashMap<String, Host>();
 		id = String.valueOf(numbers);
 		numbers++;
 	}
@@ -32,7 +32,7 @@ public class Area extends JPanel{
 		id = r;
 	}
 	
-	public void add(Location l) {
+	public void add(Host l) {
 		this.list.add(l);
 		WarehouseGUI.nodes.add(l);
 		this.hosts.put(l.host, l);
@@ -45,7 +45,7 @@ public class Area extends JPanel{
 		int y = 20;
 		g.drawString(this.id, this.getWidth()/2, this.getHeight()/2);
 
-		for (Location each : hosts.values()) {
+		for (Host each : hosts.values()) {
 			g.setColor(each.c);
 			g.fillOval(x, y, size, size);
 			g.setColor(Color.white);
